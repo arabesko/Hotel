@@ -20,5 +20,19 @@ public class Employee {
         this.job       = job;
     }
     
-
+    public String getFirstName(){
+        return firstName;
+    }
+    
+    public String getLastName(){
+        return lastName;
+    }
+    
+    public String getGender(){
+        return gender;
+    }
+    
+    public Job getJob(){
+        return job;
+    }
 }

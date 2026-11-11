@@ -4,8 +4,15 @@
  */
 package hotel;
 
+import static hotel.MenuOptions.Add;
+import static hotel.MenuOptions.Create_binary_tree;
+import static hotel.MenuOptions.Exit;
+import static hotel.MenuOptions.Search;
+import static hotel.MenuOptions.Select_file;
+import static hotel.MenuOptions.Sort;
 import java.util.Scanner;
 import java.util.InputMismatchException; // NUEVO: importar la excepción
+import java.io.File;
 
 /**
  *
@@ -18,9 +25,11 @@ public class Hotel {
         Scanner scanner = new Scanner(System.in);
 
         int option = 0;
+        MenuOptions optionSelected = null;
         boolean fileLoaded = false;
         String fileName = "None";
         int recordsLoaded = 0;
+        String selectedFile;
 
         do {
             // MAIN MENU
@@ -31,7 +40,7 @@ public class Hotel {
             System.out.println("FILE STATUS: [" +
                     (fileLoaded ? "LOADED" : "NOT LOADED") + "]");
 
-            System.out.println("Data File name: " + fileName);
+            System.out.println("Data File Name: " + fileName);
 
             System.out.println("----------------------------------------");
 
@@ -59,21 +68,46 @@ public class Hotel {
                 scanner.nextLine();
                 continue;
             }
+            
+            optionSelected = MenuOptions.values()[option -1]; //Enum option
+            switch (optionSelected) {
 
-            switch (option) {
+                case Select_file:
+                    //SELECT FILE
+                    
+                    System.out.println("\n----------------------------------------");
+                    System.out.println("           SELECT DATA FILE");
+                    System.out.println("----------------------------------------");
+                    System.out.print("Enter the file name: ");
+                    scanner.nextLine(); // Consume the newline left by nextInt() before
+                    selectedFile = scanner.nextLine().trim(); //Input new string 
 
-                case 1:
-                    System.out.println("Opening file...");
+                    File myFile = new File(selectedFile); //Save the file in myFile
+
+                    if (myFile.exists() && myFile.isFile()) {
+                        System.out.println("\n[SUCCESS] File Found");
+                        fileLoaded = true;
+                        fileName = myFile.getName();
+                    } else {
+
+                        System.out.println("\n[ERROR] File Not Found");
+                        System.out.println("Please check the file name and try again.");
+                    }
                     break;
 
-                case 2:
-                    System.out.println("Showing information...");
+                case Add:
+                    //ADD NEW RECORDS
                     break;
 
-                case 3:
-                    System.out.println("Exiting program...");
+                case Sort:
+                    //SORT DE FILE
                     break;
-
+                case Search:
+                    //SEARCH SOMETHING IN THE FILE
+                case Create_binary_tree:
+                    //CREATING A BINARY TREE
+                case Exit:
+                    //EXIT OF THE SOFTWARE
                 default:
                     System.out.println("\n----------------------------------------");
                     System.out.println("[ERROR] Invalid Menu Selection");

@@ -36,9 +36,9 @@ public class Hotel {
             System.out.println("----------------------------------------");
 
             System.out.println("1. Select File");
-            System.out.println("2. Sort Records");
-            System.out.println("3. Search Records");
-            System.out.println("4. Add New Record");
+            System.out.println("2. Add New Record");
+            System.out.println("3. Sort Records");
+            System.out.println("4. Search Records");
             System.out.println("5. Create Binary Tree");
             System.out.println("6. Exit");
 
@@ -54,7 +54,6 @@ public class Hotel {
                 System.out.println("[ERROR] Invalid Menu Selection");
                 System.out.println("----------------------------------------");
                 System.out.println("The value entered is not valid.");
-                System.out.println("Please enter a whole number between 1 and 6.");
                 System.out.println("----------------------------------------");
 
                 scanner.nextLine();
@@ -76,7 +75,12 @@ public class Hotel {
                     break;
 
                 default:
-                    System.out.println("Invalid option. Please try again.");
+                    System.out.println("\n----------------------------------------");
+                    System.out.println("[ERROR] Invalid Menu Selection");
+                    System.out.println("----------------------------------------");
+                    System.out.println("The selected option is not available.");
+                    System.out.println("Please select an option between 1 and 6.");
+                    System.out.println("----------------------------------------");
                     break;
             }
 

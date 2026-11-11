@@ -13,6 +13,8 @@ import static hotel.MenuOptions.Sort;
 import java.util.Scanner;
 import java.util.InputMismatchException; // NUEVO: importar la excepción
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  *
@@ -84,10 +86,31 @@ public class Hotel {
 
                     File myFile = new File(selectedFile); //Save the file in myFile
 
+                    //Im verifying if the file exist and if is a file (no directory)
                     if (myFile.exists() && myFile.isFile()) {
                         System.out.println("\n[SUCCESS] File Found");
-                        fileLoaded = true;
-                        fileName = myFile.getName();
+                        
+                        //We are trying to open the file
+                        try (FileReader reader = new FileReader(myFile)) {
+                            //Is possible to open
+                            fileLoaded = true;
+                            fileName = myFile.getName();
+
+                            System.out.println("\n----------------------------------------");
+                            System.out.println("[SUCCESS] File Opened Successfully");
+                            System.out.println("----------------------------------------");
+                            System.out.println("File: " + fileName);
+                            System.out.println("----------------------------------------");
+
+                        } catch (IOException e) {
+                            //Is  not possible to open or close
+                            System.out.println("\n----------------------------------------");
+                            System.out.println("[ERROR] Unable to Open File");
+                            System.out.println("----------------------------------------");
+                            System.out.println(e.getMessage());
+                            System.out.println("----------------------------------------");
+                        }
+                        
                     } else {
 
                         System.out.println("\n[ERROR] File Not Found");

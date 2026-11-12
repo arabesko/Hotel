@@ -4,35 +4,32 @@
  */
 package hotel;
 
-import static hotel.MenuOptions.Add;
-import static hotel.MenuOptions.Create_binary_tree;
-import static hotel.MenuOptions.Exit;
-import static hotel.MenuOptions.Search;
-import static hotel.MenuOptions.Select_file;
-import static hotel.MenuOptions.Sort;
+
 import java.util.Scanner;
 import java.util.InputMismatchException; // NUEVO: importar la excepción
 import java.io.File;
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
-/**
- *
- * @author arabesko
- */
 public class Hotel {
 
+    private static ArrayList<Employee> employeesList = new ArrayList<>();
+    
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
         int option = 0;
-        MenuOptions optionSelected = null;
+        MenuOptions optionSelected = null; //Enum
         boolean fileLoaded = false;
         String fileName = "None";
-        int recordsLoaded = 0;
         String selectedFile;
-
+        
+        EmployeeMethods myMethods = new EmployeeMethods();
+        
+        
         do {
             // MAIN MENU
             System.out.println("\n========================================");
@@ -91,7 +88,7 @@ public class Hotel {
                         System.out.println("\n[SUCCESS] File Found");
                         
                         //We are trying to open the file
-                        try (FileReader reader = new FileReader(myFile)) {
+                        try (BufferedReader reader = new BufferedReader(new FileReader(myFile))) {
                             //Is possible to open
                             fileLoaded = true;
                             fileName = myFile.getName();
@@ -101,6 +98,8 @@ public class Hotel {
                             System.out.println("----------------------------------------");
                             System.out.println("File: " + fileName);
                             System.out.println("----------------------------------------");
+                            
+                            myMethods.loadEmployees(reader, employeesList);
 
                         } catch (IOException e) {
                             //Is  not possible to open or close

@@ -5,6 +5,9 @@
 package hotel;
 
 
+import hotel.inheritance.Employee;
+import hotel.methods.EmployeeMethods;
+import hotel.enums.MenuOptions;
 import java.util.Scanner;
 import java.util.InputMismatchException; // NUEVO: importar la excepción
 import java.io.File;
@@ -61,7 +64,7 @@ public class Hotel {
                 System.out.println("\n----------------------------------------");
                 System.out.println("[ERROR] Invalid Menu Selection");
                 System.out.println("----------------------------------------");
-                System.out.println("The value entered is not valid.");
+                System.out.println("The value entered is not valid");
                 System.out.println("----------------------------------------");
 
                 scanner.nextLine();
@@ -113,12 +116,21 @@ public class Hotel {
                     } else {
 
                         System.out.println("\n[ERROR] File Not Found");
-                        System.out.println("Please check the file name and try again.");
+                        System.out.println("Please check the file name and try again");
                     }
                     break;
 
                 case Add:
                     //ADD NEW RECORDS
+                    
+                    //The file was selected before
+                    if (!fileLoaded) {
+                        System.out.println("[WARNING] Please select a file first");
+                        break;
+                    }
+
+                    System.out.println("[INFO] Add new employee");
+                    
                     break;
 
                 case Sort:

@@ -1,4 +1,6 @@
-package hotel;
+package hotel.structure;
+
+import hotel.structure.Department;
 
 public class Job {
     private double salary;

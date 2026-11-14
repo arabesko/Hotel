@@ -1,4 +1,4 @@
-package hotel;
+package hotel.structure;
 
 public class Department {
     private String departmentName;

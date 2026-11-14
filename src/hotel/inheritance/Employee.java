@@ -1,4 +1,6 @@
-package hotel;
+package hotel.inheritance;
+
+import hotel.structure.Job;
 
 public class Employee {
     private String firstName;

@@ -1,6 +1,7 @@
 package hotel.methods;
 import hotel.structure.Department;
 import hotel.inheritance.Employee;
+import hotel.inheritance.*;
 import hotel.structure.Job;
 import hotel.enums.DepartmentOptions;
 import hotel.enums.CompanyOptions;
@@ -49,7 +50,7 @@ public class EmployeeMethods {
                 }
                 
                 Job job = new Job(salary, fields[6].trim(), fields[7].trim(), fields[8].trim(), department);
-                Employee employee = new Employee(fields[0].trim(), fields[1].trim(), fields[2].trim(), fields[3].trim(), job);
+                Employee employee = createEmployee(fields[0].trim(), fields[1].trim(), fields[2].trim(), fields[3].trim(), job);
                 
                 employeesList.add(employee);
             }
@@ -60,49 +61,116 @@ public class EmployeeMethods {
         }
     }
     
+    private Employee createEmployee(String firstName, String lastName, String gender, String email, Job job) {
+
+        String jobTitle = job.getJobTitle();
+
+        switch (jobTitle.toLowerCase()) {
+
+            //Manager Group
+            case "manager":
+            case "senior manager":
+            case "head manager":
+                return new Manager(firstName, lastName, gender, email, job);
+
+            //Assistant Manager Group
+            case "assistant manager":
+                return new AssistantManager(firstName, lastName, gender, email, job);
+
+            //Team Leader Group
+            case "team lead":
+                return new TeamLeader(firstName, lastName, gender, email, job);
+
+            //Backend Developer Group
+            case "backend":
+            case "backend developer":
+            case "full-stack":
+            case "full-stack developer":
+            case "ai developer":
+            case "devops":
+                return new BackendDeveloper(firstName, lastName, gender, email, job);
+
+            //Frontend Developer Group
+            case "frontend developer":
+            case "mobile developer":
+                return new FrontendDeveloper(firstName, lastName, gender, email, job);
+
+            //QA Specialist Group
+            case "qa":
+                return new QASpecialist(firstName, lastName, gender, email, job);
+
+            //Finance Staff Group
+            case "finance analyst":
+            case "junior bookkeeper":
+            case "bookkeeper":
+                return new FinanceStaff(firstName, lastName, gender, email, job);
+
+            //HR Staff Group
+            case "hr specialist":
+            case "hr analyst":
+            case "client relations coordinator":
+            case "client relations specialist":
+                return new HRStaff(firstName, lastName, gender, email, job);
+
+            //Marketing Staff Group
+            case "marketing specialist":
+            case "junior clerk":
+            case "sales clerk":
+            case "support clerk":
+            case "clerk":
+            case "white-collar worker":
+            case "office worker":
+            case "desk jockey":
+                return new MarketingStaff(firstName, lastName, gender, email, job);    
+
+            default:
+                return new Employee(firstName, lastName, gender, email, job);
+        }
+    }
+    
     public void addEmployee(ArrayList<Employee> employessList, Scanner myScan){
         System.out.println("\n--- ADD NEW EMPLOYEE ---");
         
         //First name input and validation
-        String myText = "";
+        String firstName = "";
         while (true) {
             System.out.print("Enter first name: ");
-            myText = myScan.nextLine().trim();
+            firstName = myScan.nextLine().trim();
             
-            if (myText.matches("[\\p{L}]+(?:[ '-][\\p{L}]+)*")) break;
+            if (firstName.matches("[\\p{L}]+(?:[ '-][\\p{L}]+)*")) break;
 
             System.out.println("[ERROR] Please enter a valid name.");
         }
         
         //Last name input and validation
-        myText = "";
+        String lastName = "";
         while (true) {
             System.out.print("Enter last name: ");
-            myText = myScan.nextLine().trim();
+            lastName = myScan.nextLine().trim();
 
-            if (myText.matches("[\\p{L}]+(?:[ '-][\\p{L}]+)*")) break;
+            if (lastName.matches("[\\p{L}]+(?:[ '-][\\p{L}]+)*")) break;
 
             System.out.println("[ERROR] Please enter a valid last name.");
         }
         
         //Gender input and validation
-        myText = "";
+        String gender = "";
         while (true) {
             System.out.print("Enter gender (Male/Female/Other): ");
-            myText = myScan.nextLine().trim();
+            gender = myScan.nextLine().trim();
 
-            if (myText.equalsIgnoreCase("Male") || myText.equalsIgnoreCase("Female") || myText.equalsIgnoreCase("Other")) break;
+            if (gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female") || gender.equalsIgnoreCase("Other")) break;
             
             System.out.println("[ERROR] Please enter Male, Female or Other.");
         }
         
         //Email input and validation
-        myText = "";
+        String email = "";
         while (true) {
             System.out.print("Enter email: ");
-            myText = myScan.nextLine().trim();
+            email = myScan.nextLine().trim();
 
-            if (myText.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) break;
+            if (email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) break;
 
             System.out.println("[ERROR] Please enter a valid email.");
         }
@@ -366,7 +434,7 @@ public class EmployeeMethods {
                 break;
 
             case Backend:
-                jobTitle = "backend";
+                jobTitle = "Backend";
                 break;
 
             case Backend_Developer:
@@ -545,5 +613,22 @@ public class EmployeeMethods {
         }
 
         System.out.println("[SUCCESS] Company selected: " + company);
+        
+
+        Department department = new Department(departmentName);
+
+        Job job = new Job(salary, position, jobTitle, company, department);
+
+        Employee employee = createEmployee(firstName, lastName, gender, email, job);
+
+        employessList.add(employee);
+
+         System.out.println("[TEST] Total employees: " + employessList.size());
+        System.out.println("[TEST] Employee class: " + employee.getClass().getSimpleName());
+        
+        System.out.println("[SUCCESS] Employee added successfully.");
+        
+       
+
     }
 }

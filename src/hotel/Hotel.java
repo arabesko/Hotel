@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import hotel.methods.EmployeeMethods;
 
 public class Hotel {
 
@@ -22,7 +23,8 @@ public class Hotel {
     
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner myScan = new Scanner(System.in);
+        EmployeeMethods employeeMethods = new EmployeeMethods();
 
         int option = 0;
         MenuOptions optionSelected = null; //Enum
@@ -31,7 +33,6 @@ public class Hotel {
         String selectedFile;
         
         EmployeeMethods myMethods = new EmployeeMethods();
-        
         
         do {
             // MAIN MENU
@@ -58,7 +59,8 @@ public class Hotel {
 
             // VERIFY THE OPTION
             try {
-                option = scanner.nextInt();
+                option = myScan.nextInt();
+                myScan.nextLine();
 
             } catch (InputMismatchException e) {
                 System.out.println("\n----------------------------------------");
@@ -67,7 +69,7 @@ public class Hotel {
                 System.out.println("The value entered is not valid");
                 System.out.println("----------------------------------------");
 
-                scanner.nextLine();
+                myScan.nextLine();
                 continue;
             }
             
@@ -81,12 +83,11 @@ public class Hotel {
                     System.out.println("           SELECT DATA FILE");
                     System.out.println("----------------------------------------");
                     System.out.print("Enter the file name: ");
-                    scanner.nextLine(); // Consume the newline left by nextInt() before
-                    selectedFile = scanner.nextLine().trim(); //Input new string 
+                    selectedFile = myScan.nextLine().trim(); //Input new string 
 
                     File myFile = new File(selectedFile); //Save the file in myFile
 
-                    //Im verifying if the file exist and if is a file (no directory)
+                    //Im verifying if the file exist and if is a file (no a directory)
                     if (myFile.exists() && myFile.isFile()) {
                         System.out.println("\n[SUCCESS] File Found");
                         
@@ -129,6 +130,7 @@ public class Hotel {
                         break;
                     }
 
+                    employeeMethods.addEmployee(employeesList, myScan);
                     System.out.println("[INFO] Add new employee");
                     
                     break;
@@ -154,6 +156,6 @@ public class Hotel {
 
         } while (option != 6);
 
-        scanner.close();
+        myScan.close();
     }
 }

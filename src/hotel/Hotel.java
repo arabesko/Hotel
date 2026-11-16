@@ -6,8 +6,8 @@ package hotel;
 
 
 import hotel.inheritance.Employee;
-import hotel.methods.EmployeeMethods;
 import hotel.enums.MenuOptions;
+import static hotel.enums.MenuOptions.Create_binary_tree;
 import java.util.Scanner;
 import java.util.InputMismatchException; // NUEVO: importar la excepción
 import java.io.File;
@@ -24,15 +24,13 @@ public class Hotel {
     public static void main(String[] args) {
 
         Scanner myScan = new Scanner(System.in);
-        EmployeeMethods employeeMethods = new EmployeeMethods();
+        EmployeeMethods myMethods = new EmployeeMethods();
 
         int option = 0;
         MenuOptions optionSelected = null; //Enum
         boolean fileLoaded = false;
         String fileName = "None";
         String selectedFile;
-        
-        EmployeeMethods myMethods = new EmployeeMethods();
         
         do {
             // MAIN MENU
@@ -49,10 +47,11 @@ public class Hotel {
 
             System.out.println("1. Select File");
             System.out.println("2. Add New Record");
-            System.out.println("3. Sort Records");
+            System.out.println("3. Sort Records by Name");
             System.out.println("4. Search Records");
             System.out.println("5. Create Binary Tree");
-            System.out.println("6. Exit");
+            System.out.println("6. List Employess");
+            System.out.println("7. Exit");
 
             System.out.println("----------------------------------------");
             System.out.print("Enter your choice: ");
@@ -130,20 +129,114 @@ public class Hotel {
                         break;
                     }
 
-                    employeeMethods.addEmployee(employeesList, myScan);
+                    myMethods.addEmployee(employeesList, myScan);
                     System.out.println("[INFO] Add new employee");
                     
                     break;
 
                 case Sort:
                     //SORT DE FILE
+                    
+                    //The file was selected before
+                    if (!fileLoaded) {
+                        System.out.println("[WARNING] Please select a file first");
+                        break;
+                    }
+                    
+                    myMethods.insertionSort(employeesList, 1);
+                    
+                    System.out.println("\n----------------------------------------");
+                    System.out.println("[SUCCESS] Employees Sorted Successfully");
+                    System.out.println("----------------------------------------");
+                    System.out.println("Records sorted: " + employeesList.size());
+                    
                     break;
                 case Search:
-                    //SEARCH SOMETHING IN THE FILE
+                    //SEARCH A NAME IN THE FILE
+                    
+                    //The file was selected before
+                    if (!fileLoaded) {
+                        System.out.println("[WARNING] Please select a file first");
+                        break;
+                    }
+                    
+                    System.out.println("\n----------------------------------------");
+                    System.out.println("           SEARCH EMPLOYEE");
+                    System.out.println("----------------------------------------");
+
+                    String searchName;
+
+                    do {
+                        System.out.print("Enter employee first name: ");
+                        searchName = myScan.nextLine().trim();
+
+                        if (!searchName.matches("[a-zA-ZÀ-ÿ' -]+")) {
+                            System.out.println("[ERROR] Invalid name. Please enter a valid name");
+                        } else {
+                          break;
+                        }
+
+                    } while (true);
+
+                    //Temporary list sorted
+                    ArrayList<Employee> sortedEmployees = new ArrayList<>(employeesList);
+                    myMethods.insertionSort(sortedEmployees, 1);
+                    
+                    int foundIndex = myMethods.binarySearch(sortedEmployees, searchName, 0, sortedEmployees.size() - 1);
+                    
+                    if (foundIndex == -1) {
+                        System.out.println("[WARNING] Employee not found.");
+                    } else {
+                        Employee foundEmployee = sortedEmployees.get(foundIndex);
+
+                        System.out.println("\n[SUCCESS] Employee found.");
+                        System.out.println("First Name  : " + foundEmployee.getFirstName());
+                        System.out.println("Last Name   : " + foundEmployee.getLastName());
+                        System.out.println("Job Title   : " + foundEmployee.getJob().getJobTitle());
+                        System.out.printf("Salary      : %.2f%n", foundEmployee.getJob().getSalary());
+                        System.out.println("Department  : " + foundEmployee.getDepartment());
+                    }
+                    
+                    break;
+                    
+                    
                 case Create_binary_tree:
                     //CREATING A BINARY TREE
+                    
+                case List_employees:
+                    //LIST ALL EMPLOYEES
+                    
+                    System.out.println("\n--- EMPLOYEE LIST ---");
+
+                    System.out.printf(
+                        "%-5s %-18s %-18s %12s  %-35s%n",
+                        "No.", "FIRST NAME", "LAST NAME", "SALARY", "EMAIL"
+                    );
+
+                    System.out.println("-".repeat(95));
+                    
+                    int limit = Math.min(20, employeesList.size());
+
+                    for (int i = 0; i < limit; i++) {
+
+                        Employee employee = employeesList.get(i);
+
+                        System.out.printf(
+                            "%-5d %-18s %-18s %12.2f  %-35s%n",
+                            i + 1,
+                            employee.getFirstName(),
+                            employee.getLastName(),
+                            employee.getJob().getSalary(),
+                            employee.getEmail()
+                        );
+                    }
+
+                    System.out.println("-".repeat(95));
+                    System.out.println("Total employees: " + employeesList.size());
+
                 case Exit:
                     //EXIT OF THE SOFTWARE
+                     break;
                 default:
                     System.out.println("\n----------------------------------------");
                     System.out.println("[ERROR] Invalid Menu Selection");
@@ -152,9 +245,9 @@ public class Hotel {
                     System.out.println("Please select an option between 1 and 6.");
                     System.out.println("----------------------------------------");
                     break;
-            }
+                }
 
-        } while (option != 6);
+        } while (option != 7);
 
         myScan.close();
     }

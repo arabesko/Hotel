@@ -33,4 +33,12 @@ public class Employee {
     public Job getJob(){
         return job;
     }
+    
+    public String getEmail(){
+        return email;
+    }
+    
+    public String getDepartment(){
+        return job.getDepartment().getDepartmentName();
+    }
 }

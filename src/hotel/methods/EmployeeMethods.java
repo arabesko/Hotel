@@ -513,7 +513,7 @@ public class EmployeeMethods {
                 jobTitle = "Bookkeeper";
                 break;
 
-            case White_Collar_Worker:
+            case White_collar_Worker:
                 jobTitle = "White-collar Worker";
                 break;
 
@@ -623,12 +623,46 @@ public class EmployeeMethods {
 
         employessList.add(employee);
 
-         System.out.println("[TEST] Total employees: " + employessList.size());
-        System.out.println("[TEST] Employee class: " + employee.getClass().getSimpleName());
-        
         System.out.println("[SUCCESS] Employee added successfully.");
         
-       
-
     }
+    
+    public void insertionSort(ArrayList<Employee> employees, int i) {
+
+        if (i >= employees.size()) return;
+
+        Employee key = employees.get(i);
+        int j = i - 1;
+
+        while (j >= 0 && employees.get(j).getFirstName().compareToIgnoreCase(key.getFirstName()) > 0) {
+            employees.set(j + 1, employees.get(j));
+            j--;
+        }
+
+        employees.set(j + 1, key);
+        insertionSort(employees, i + 1);
+    }
+
+    public int binarySearch(ArrayList<Employee> employees, String name, int left, int right) {
+
+        //Elemento is not founded
+        if (left > right) return -1;
+
+        //Middle of the list
+        int mid = (left + right) / 2;
+
+        //Comparison with name in the middle
+        int comparison = employees.get(mid).getFirstName().compareToIgnoreCase(name);
+
+        //The name in the middle is the name that we are looking for
+        if (comparison == 0) return mid;
+
+        //The name in the middle is greater that the name that we are looking for, left side
+        if (comparison > 0) return binarySearch(employees, name, left, mid - 1);
+
+        //The name in the middle is less that the name that we are looking for, right side
+        return binarySearch(employees, name, mid + 1, right);
+    }
+
+
 }

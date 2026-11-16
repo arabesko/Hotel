@@ -10,5 +10,6 @@ public enum MenuOptions {
     Sort,
     Search,
     Create_binary_tree,
+    List_employees,
     Exit
 }

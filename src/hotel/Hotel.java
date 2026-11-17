@@ -207,6 +207,11 @@ public class Hotel {
                     ArrayList<Employee> availableEmployees = new ArrayList<>(employeesList);
                     BinaryTree binaryTree = new BinaryTree(availableEmployees);
                     
+                    System.out.println("[INFO] Total nodes created: " + binaryTree.countNodes());
+                    System.out.println("[INFO] Tree height: " + binaryTree.height());
+                    
+                    break;
+                    
                 case List_employees:
                     //LIST ALL EMPLOYEES
                     

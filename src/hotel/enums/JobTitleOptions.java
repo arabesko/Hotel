@@ -6,37 +6,45 @@
 package hotel.enums;
 
 public enum JobTitleOptions {
+    Manager(3),
+    Assistant_Manager(4),
+    Senior_Manager(2),
+    Head_Manager(1),
+    Team_Lead(5),
 
-    Manager,
-    Assistant_Manager,
-    Senior_Manager,
-    Head_Manager,
-    Team_Lead,
+    QA(6),
+    Backend(6),
+    Backend_Developer(6),
+    Frontend_Developer(6),
+    Full_Stack(6),
+    Full_Stack_Developer(6),
+    Mobile_Developer(6),
+    AI_Developer(6),
+    DevOps(6),
+    Marketing_Specialist(6),
+    Finance_Analyst(6),
+    HR_Specialist(6),
+    HR_Analyst(6),
+    Client_Relations_Coordinator(6),
+    Client_Relations_Specialist(6),
 
-    QA,
-    Backend,
-    Backend_Developer,
-    Frontend_Developer,
-    Full_Stack,
-    Full_Stack_Developer,
-    Mobile_Developer,
-    AI_Developer,
-    DevOps,
+    Junior_Clerk(7),
+    Sales_Clerk(7),
+    Support_Clerk(7),
+    Clerk(7),
+    Junior_Bookkeeper(7),
+    Bookkeeper(6),
+    White_collar_Worker(7),
+    Office_Worker(7),
+    Desk_Jockey(7);
 
-    Marketing_Specialist,
-    Finance_Analyst,
-    HR_Specialist,
-    HR_Analyst,
-    Client_Relations_Coordinator,
-    Client_Relations_Specialist,
+    private final int priority;
 
-    Junior_Clerk,
-    Sales_Clerk,
-    Support_Clerk,
-    Clerk,
-    Junior_Bookkeeper,
-    Bookkeeper,
-    White_Collar_Worker,
-    Office_Worker,
-    Desk_Jockey
+    JobTitleOptions(int priority) {
+        this.priority = priority;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
 }

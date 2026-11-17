@@ -19,11 +19,8 @@ public class EmployeeMethods {
             String lineRecord; //
             reader.readLine(); // Titles
 
-            while ((lineRecord = reader.readLine()) != null) {
-                if (lineRecord.trim().isEmpty()) {
-                    //Record empty
-                    continue;
-                }
+            while ((lineRecord = reader.readLine()) != null) { //First record is different to null
+                if (lineRecord.trim().isEmpty()) continue; //Record empty
                 
                 String[] fields = lineRecord.split(",", -1); //Line of the file
                 
@@ -33,7 +30,9 @@ public class EmployeeMethods {
                     continue;
                 }
                 
-                Department department = new Department(fields[5].trim());
+                //Standar name of department
+                String departmentName = fields[5].trim().replace(" ", "_");
+                Department department = new Department(departmentName);
                 
                 double salary;
 
@@ -49,7 +48,22 @@ public class EmployeeMethods {
                     continue;
                 }
                 
-                Job job = new Job(salary, fields[6].trim(), fields[7].trim(), fields[8].trim(), department);
+                String jobTitle = fields[7].trim(); //Data format
+                jobTitle = jobTitle.replace(" ", "_").replace("-", "_"); //Enu format
+                int priority = 0;
+                
+                //We check de enum to get the priority with the name of the file
+                for (JobTitleOptions option : JobTitleOptions.values()) {
+                    if (option.name().equalsIgnoreCase(jobTitle)) {
+                        jobTitle = option.name();
+                        priority = option.getPriority();
+                        break;
+                    }
+                }
+                
+                String position = fields[6].trim().replace(" ", "_");
+                
+                Job job = new Job(salary, position, jobTitle, fields[8].trim(), department, priority);
                 Employee employee = createEmployee(fields[0].trim(), fields[1].trim(), fields[2].trim(), fields[3].trim(), job);
                 
                 employeesList.add(employee);
@@ -65,7 +79,7 @@ public class EmployeeMethods {
 
         String jobTitle = job.getJobTitle();
 
-        switch (jobTitle.toLowerCase()) {
+        switch (jobTitle.toLowerCase().replace("_", " ").replace("-", " ")) {
 
             //Manager Group
             case "manager":
@@ -84,8 +98,8 @@ public class EmployeeMethods {
             //Backend Developer Group
             case "backend":
             case "backend developer":
-            case "full-stack":
-            case "full-stack developer":
+            case "full stack":
+            case "full stack developer":
             case "ai developer":
             case "devops":
                 return new BackendDeveloper(firstName, lastName, gender, email, job);
@@ -118,7 +132,7 @@ public class EmployeeMethods {
             case "sales clerk":
             case "support clerk":
             case "clerk":
-            case "white-collar worker":
+            case "white collar worker":
             case "office worker":
             case "desk jockey":
                 return new MarketingStaff(firstName, lastName, gender, email, job);    
@@ -231,55 +245,9 @@ public class EmployeeMethods {
             }
         }
         
+        //We get de index of the department inn the enum
         DepartmentOptions selectedDepartment = DepartmentOptions.values()[departmentOption - 1];
-        String departmentName;
-
-        switch (selectedDepartment) {
-
-            case Finance:
-                departmentName = "Finance";
-                break;
-
-            case IT_Development:
-                departmentName = "IT Development";
-                break;
-
-            case Sales:
-                departmentName = "Sales";
-                break;
-
-            case HR:
-                departmentName = "HR";
-                break;
-
-            case Marketing:
-                departmentName = "Marketing";
-                break;
-
-            case Operations:
-                departmentName = "Operations";
-                break;
-
-            case Customer_Service:
-                departmentName = "Customer Service";
-                break;
-
-            case Accounting:
-                departmentName = "Accounting";
-                break;
-
-            case IT_Support:
-                departmentName = "IT Support";
-                break;
-
-            case Quality_Assurance:
-                departmentName = "Quality Assurance";
-                break;
-
-            default:
-                departmentName = "No data";
-                break;
-        }
+        String departmentName = selectedDepartment.name(); //We get the name in the enum
 
         System.out.println("[SUCCESS] Department selected: " + departmentName);
         
@@ -315,53 +283,9 @@ public class EmployeeMethods {
             }
         }
         
-        PositionOptions selectedPosition;
-        String position;
-
-        selectedPosition = PositionOptions.values()[positionOption - 1];
-
-        switch (selectedPosition) {
-
-            case Senior:
-                position = "senior";
-                break;
-
-            case Middle:
-                position = "middle";
-                break;
-
-            case Junior:
-                position = "junior";
-                break;
-
-            case Intern:
-                position = "intern";
-                break;
-
-            case Contract:
-                position = "contract";
-                break;
-
-            case Trainee:
-                position = "trainee";
-                break;
-
-            case Temporary:
-                position = "temporary";
-                break;
-
-            case Part_Time:
-                position = "part time";
-                break;
-
-            case Not_Specified:
-                position = "";
-                break;
-
-            default:
-                position = "No data";
-                break;
-        }
+        //We get the index in de enum of the positions
+        PositionOptions selectedPosition = PositionOptions.values()[positionOption - 1];
+        String position = selectedPosition.name(); //Name of the position
 
         System.out.println("[SUCCESS] Position selected: " + (position.isEmpty() ? "Not Specified" : position));
         
@@ -404,131 +328,9 @@ public class EmployeeMethods {
             }
         }
         
+        //We get the index enum with jobTitleOption-1
         JobTitleOptions selectedJobTitle = JobTitleOptions.values()[jobTitleOption - 1];
-        String jobTitle;
-
-        switch (selectedJobTitle) {
-
-            case Manager:
-                jobTitle = "Manager";
-                break;
-
-            case Assistant_Manager:
-                jobTitle = "Assistant Manager";
-                break;
-
-            case Senior_Manager:
-                jobTitle = "Senior Manager";
-                break;
-
-            case Head_Manager:
-                jobTitle = "Head Manager";
-                break;
-
-            case Team_Lead:
-                jobTitle = "Team Lead";
-                break;
-
-            case QA:
-                jobTitle = "QA";
-                break;
-
-            case Backend:
-                jobTitle = "Backend";
-                break;
-
-            case Backend_Developer:
-                jobTitle = "Backend Developer";
-                break;
-
-            case Frontend_Developer:
-                jobTitle = "Frontend Developer";
-                break;
-
-            case Full_Stack:
-                jobTitle = "Full-stack";
-                break;
-
-            case Full_Stack_Developer:
-                jobTitle = "Full-stack Developer";
-                break;
-
-            case Mobile_Developer:
-                jobTitle = "Mobile Developer";
-                break;
-
-            case AI_Developer:
-                jobTitle = "AI Developer";
-                break;
-
-            case DevOps:
-                jobTitle = "DevOps";
-                break;
-
-            case Marketing_Specialist:
-                jobTitle = "Marketing Specialist";
-                break;
-
-            case Finance_Analyst:
-                jobTitle = "Finance Analyst";
-                break;
-
-            case HR_Specialist:
-                jobTitle = "HR Specialist";
-                break;
-
-            case HR_Analyst:
-                jobTitle = "HR Analyst";
-                break;
-
-            case Client_Relations_Coordinator:
-                jobTitle = "Client Relations Coordinator";
-                break;
-
-            case Client_Relations_Specialist:
-                jobTitle = "Client Relations Specialist";
-                break;
-
-            case Junior_Clerk:
-                jobTitle = "Junior Clerk";
-                break;
-
-            case Sales_Clerk:
-                jobTitle = "Sales Clerk";
-                break;
-
-            case Support_Clerk:
-                jobTitle = "Support Clerk";
-                break;
-
-            case Clerk:
-                jobTitle = "Clerk";
-                break;
-
-            case Junior_Bookkeeper:
-                jobTitle = "Junior Bookkeeper";
-                break;
-
-            case Bookkeeper:
-                jobTitle = "Bookkeeper";
-                break;
-
-            case White_collar_Worker:
-                jobTitle = "White-collar Worker";
-                break;
-
-            case Office_Worker:
-                jobTitle = "Office Worker";
-                break;
-
-            case Desk_Jockey:
-                jobTitle = "Desk Jockey";
-                break;
-
-            default:
-                jobTitle = "No data";
-                break;
-        }
+        String jobTitle = selectedJobTitle.name(); //We get the name enum
 
         System.out.println("[SUCCESS] Job title selected: " + jobTitle);
         
@@ -562,62 +364,16 @@ public class EmployeeMethods {
             }
         }
         
+        //We get the index enum with CompanyOptions-1
         CompanyOptions selectedCompany = CompanyOptions.values()[companyOption - 1];
-        String company;
-
-        switch (selectedCompany) {
-
-            case TechInnovators:
-                company = "TechInnovators";
-                break;
-
-            case CodeSolutions:
-                company = "CodeSolutions";
-                break;
-
-            case DataVision:
-                company = "DataVision";
-                break;
-
-            case Infinisoft:
-                company = "Infinisoft";
-                break;
-
-            case DevsUnited:
-                company = "DevsUnited";
-                break;
-
-            case Netwise:
-                company = "Netwise";
-                break;
-
-            case TechWorks:
-                company = "TechWorks";
-                break;
-
-            case SysDevelopers:
-                company = "SysDevelopers";
-                break;
-
-            case InfoSphere:
-                company = "InfoSphere";
-                break;
-
-            case ByteWare:
-                company = "ByteWare";
-                break;
-
-            default:
-                company = "No data";
-                break;
-        }
+        String company = selectedCompany.name(); //We get the name of de company from de enum options
 
         System.out.println("[SUCCESS] Company selected: " + company);
         
-
         Department department = new Department(departmentName);
 
-        Job job = new Job(salary, position, jobTitle, company, department);
+        int priority = selectedJobTitle.getPriority(); //We get the priority in the enum
+        Job job = new Job(salary, position, jobTitle, company, department, priority);
 
         Employee employee = createEmployee(firstName, lastName, gender, email, job);
 

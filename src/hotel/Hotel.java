@@ -16,6 +16,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import hotel.methods.EmployeeMethods;
+import hotel.structure.BinaryTree;
 
 public class Hotel {
 
@@ -203,14 +204,23 @@ public class Hotel {
                 case Create_binary_tree:
                     //CREATING A BINARY TREE
                     
+                    ArrayList<Employee> availableEmployees = new ArrayList<>(employeesList);
+                    BinaryTree binaryTree = new BinaryTree(availableEmployees);
+                    
                 case List_employees:
                     //LIST ALL EMPLOYEES
                     
                     System.out.println("\n--- EMPLOYEE LIST ---");
 
+                    //System.out.printf(
+                    //    "%-5s %-18s %-18s %12s  %-35s%n",
+                    //    "No.", "FIRST NAME", "LAST NAME", "SALARY", "EMAIL"
+                    //);
+                    
                     System.out.printf(
-                        "%-5s %-18s %-18s %12s  %-35s%n",
-                        "No.", "FIRST NAME", "LAST NAME", "SALARY", "EMAIL"
+                        "%-5s %-18s %-18s %12s %-35s %-25s %-10s%n",
+                        "No.", "FIRST NAME", "LAST NAME", "SALARY",
+                        "EMAIL", "JOB TITLE", "PRIORITY"
                     );
 
                     System.out.println("-".repeat(95));
@@ -222,12 +232,14 @@ public class Hotel {
                         Employee employee = employeesList.get(i);
 
                         System.out.printf(
-                            "%-5d %-18s %-18s %12.2f  %-35s%n",
+                            "%-5d %-18s %-18s %12.2f %-35s %-25s %-10d%n",
                             i + 1,
                             employee.getFirstName(),
                             employee.getLastName(),
                             employee.getJob().getSalary(),
-                            employee.getEmail()
+                            employee.getEmail(),
+                            employee.getJob().getJobTitle(),
+                            employee.getJob().getPriority()
                         );
                     }
 

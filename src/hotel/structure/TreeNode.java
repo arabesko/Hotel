@@ -29,7 +29,6 @@ public class TreeNode {
         return right;
     }
 
-    // Setters
     public void setLeft(TreeNode left) {
         this.left = left;
     }

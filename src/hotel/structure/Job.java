@@ -7,15 +7,17 @@ public class Job {
     private String position;
     private String jobTitle;
     private String company;
+    private int priority;
     
     private Department department;
     
-    public Job (double salary, String position, String jobTitle, String company, Department department){
+    public Job (double salary, String position, String jobTitle, String company, Department department, int priority){
         this.salary     = salary;
         this.position   = position;
         this.jobTitle   = jobTitle;
         this.company    = company;
         this.department = department;
+        this.priority  = priority;
     }
     
     public double getSalary(){
@@ -36,5 +38,9 @@ public class Job {
     
     public Department getDepartment(){
         return department;
+    }
+    
+    public int getPriority(){
+        return priority;
     }
 }

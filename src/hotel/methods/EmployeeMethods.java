@@ -48,21 +48,25 @@ public class EmployeeMethods {
                     continue;
                 }
                 
-                String jobTitle = fields[7].trim(); //Data format
-                jobTitle = jobTitle.replace(" ", "_").replace("-", "_"); //Enu format
-                int priority = 0;
+                //Standar name of job title
+                String jobTitle = fields[7].trim();
+                jobTitle = jobTitle.replace(" ", "_").replace("-", "_");
                 
+                
+                int priority = 0;
                 //We check de enum to get the priority with the name of the file
                 for (JobTitleOptions option : JobTitleOptions.values()) {
-                    if (option.name().equalsIgnoreCase(jobTitle)) {
+                    if (option.name().equalsIgnoreCase(jobTitle)) {//enum name = jobtitle field
                         jobTitle = option.name();
                         priority = option.getPriority();
                         break;
                     }
                 }
                 
+                //Standar name of job position
                 String position = fields[6].trim().replace(" ", "_");
                 
+                //Clase jobe
                 Job job = new Job(salary, position, jobTitle, fields[8].trim(), department, priority);
                 Employee employee = createEmployee(fields[0].trim(), fields[1].trim(), fields[2].trim(), fields[3].trim(), job);
                 
@@ -79,6 +83,7 @@ public class EmployeeMethods {
 
         String jobTitle = job.getJobTitle();
 
+        //Group jobs
         switch (jobTitle.toLowerCase().replace("_", " ").replace("-", " ")) {
 
             //Manager Group
@@ -370,12 +375,11 @@ public class EmployeeMethods {
 
         System.out.println("[SUCCESS] Company selected: " + company);
         
-        Department department = new Department(departmentName);
-
+        Department department = new Department(departmentName); //Class department
         int priority = selectedJobTitle.getPriority(); //We get the priority in the enum
-        Job job = new Job(salary, position, jobTitle, company, department, priority);
+        Job job = new Job(salary, position, jobTitle, company, department, priority); //Class job
 
-        Employee employee = createEmployee(firstName, lastName, gender, email, job);
+        Employee employee = createEmployee(firstName, lastName, gender, email, job); //Class employee with the groups
 
         employessList.add(employee);
 
@@ -413,12 +417,46 @@ public class EmployeeMethods {
         //The name in the middle is the name that we are looking for
         if (comparison == 0) return mid;
 
+        //Left side
         //The name in the middle is greater that the name that we are looking for, left side
         if (comparison > 0) return binarySearch(employees, name, left, mid - 1);
 
+        //Right side
         //The name in the middle is less that the name that we are looking for, right side
         return binarySearch(employees, name, mid + 1, right);
     }
 
+    public void listEmployees(ArrayList<Employee> employeesList) {
 
+        System.out.println("\n--- EMPLOYEE LIST ---");
+
+        System.out.printf(
+            "%-5s %-12s %-12s %12s %-35s %-40s %-10s%n",
+            "No.", "FIRST NAME", "LAST NAME", "SALARY",
+            "EMAIL", "JOB TITLE", "PRIORITY"
+        );
+
+        System.out.println("-".repeat(140));
+
+        int limit = Math.min(20, employeesList.size());
+
+        for (int i = 0; i < limit; i++) {
+
+            Employee employee = employeesList.get(i);
+
+            System.out.printf(
+                "%-5d %-12s %-12s %12.2f %-35s %-40s %-10d%n",
+                i + 1,
+                employee.getFirstName(),
+                employee.getLastName(),
+                employee.getJob().getSalary(),
+                employee.getEmail(),
+                employee.getJob().getJobTitle(),
+                employee.getJob().getPriority()
+            );
+        }
+
+        System.out.println("-".repeat(140));
+        System.out.println("Total employees: " + employeesList.size());
+    }
 }

@@ -73,6 +73,12 @@ public class Hotel {
                 continue;
             }
             
+            // Validate menu range for enum
+            if (option < 1 || option > MenuOptions.values().length) {
+                System.out.println("[ERROR] Invalid menu selection.");
+                System.out.println("Please select an option between 1 and 7.");
+                continue;
+            }
             optionSelected = MenuOptions.values()[option -1]; //Enum option
             switch (optionSelected) {
 
@@ -136,7 +142,7 @@ public class Hotel {
                     break;
 
                 case Sort:
-                    //SORT DE FILE
+                    //SORT FILE
                     
                     //The file was selected before
                     if (!fileLoaded) {
@@ -145,6 +151,8 @@ public class Hotel {
                     }
                     
                     myMethods.insertionSort(employeesList, 1);
+                    
+                    myMethods.listEmployees(employeesList);
                     
                     System.out.println("\n----------------------------------------");
                     System.out.println("[SUCCESS] Employees Sorted Successfully");
@@ -204,52 +212,33 @@ public class Hotel {
                 case Create_binary_tree:
                     //CREATING A BINARY TREE
                     
+                    //The file was selected before
+                    if (!fileLoaded) {
+                        System.out.println("[WARNING] Please select a file first");
+                        break;
+                    }
+                    
                     ArrayList<Employee> availableEmployees = new ArrayList<>(employeesList);
                     BinaryTree binaryTree = new BinaryTree(availableEmployees);
                     
                     System.out.println("[INFO] Total nodes created: " + binaryTree.countNodes());
                     System.out.println("[INFO] Tree height: " + binaryTree.height());
                     
+                    System.out.println("\n--- BINARY TREE LEVEL-ORDER TRAVERSAL ---");
+                    binaryTree.levelOrderTraversal();
+                    
                     break;
                     
                 case List_employees:
                     //LIST ALL EMPLOYEES
                     
-                    System.out.println("\n--- EMPLOYEE LIST ---");
-
-                    //System.out.printf(
-                    //    "%-5s %-18s %-18s %12s  %-35s%n",
-                    //    "No.", "FIRST NAME", "LAST NAME", "SALARY", "EMAIL"
-                    //);
-                    
-                    System.out.printf(
-                        "%-5s %-18s %-18s %12s %-35s %-25s %-10s%n",
-                        "No.", "FIRST NAME", "LAST NAME", "SALARY",
-                        "EMAIL", "JOB TITLE", "PRIORITY"
-                    );
-
-                    System.out.println("-".repeat(95));
-                    
-                    int limit = Math.min(20, employeesList.size());
-
-                    for (int i = 0; i < limit; i++) {
-
-                        Employee employee = employeesList.get(i);
-
-                        System.out.printf(
-                            "%-5d %-18s %-18s %12.2f %-35s %-25s %-10d%n",
-                            i + 1,
-                            employee.getFirstName(),
-                            employee.getLastName(),
-                            employee.getJob().getSalary(),
-                            employee.getEmail(),
-                            employee.getJob().getJobTitle(),
-                            employee.getJob().getPriority()
-                        );
+                    //The file was selected before
+                    if (!fileLoaded) {
+                        System.out.println("[WARNING] Please select a file first");
+                        break;
                     }
-
-                    System.out.println("-".repeat(95));
-                    System.out.println("Total employees: " + employeesList.size());
+                    myMethods.listEmployees(employeesList);
+                    break;
 
                 case Exit:
                     //EXIT OF THE SOFTWARE

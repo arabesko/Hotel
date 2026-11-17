@@ -13,7 +13,7 @@ public class BinaryTree {
 
     //Contructor
     public BinaryTree(ArrayList<Employee> availableEmployees) {
-        this.root = buildTree(availableEmployees, 1, 7);
+        this.root = buildTree(availableEmployees, 1, 7); //First node
     }
     
     private TreeNode buildTree(ArrayList<Employee> availableEmployees, int level, int maxLevel) {
@@ -59,5 +59,53 @@ public class BinaryTree {
         if (node == null) return 0;
 
         return 1 + Math.max(height(node.getLeft()), height(node.getRight()));
+    }
+    
+    public void levelOrderTraversal() {
+        if (root == null) {
+            System.out.println("[INFO] Binary Tree is empty.");
+            return;
+        }
+
+        // Table header
+        System.out.printf(
+            "%-5s %-18s %-38s %-20s %-8s%n",
+            "No.", "NAME", "JOB TITLE", "DEPARTMENT", "PRIORITY"
+        );
+
+        System.out.println("-".repeat(85));
+
+        // First element
+        ArrayList<TreeNode> queue = new ArrayList<>();
+        queue.add(root);
+
+        int index = 1;
+
+        // While the list is not empty
+        while (!queue.isEmpty()) {
+
+            TreeNode current = queue.remove(0);
+
+            System.out.printf(
+                "%-5s %-18s %-38s %-20s %-8s%n",
+                index,
+                current.getEmployee().getFirstName() + " " + current.getEmployee().getLastName(),
+                current.getEmployee().getJob().getJobTitle(),
+                current.getEmployee().getDepartment(),
+                current.getEmployee().getJob().getPriority()
+            );
+
+            index++;
+
+            if (current.getLeft() != null) {
+                queue.add(current.getLeft());
+            }
+
+            if (current.getRight() != null) {
+                queue.add(current.getRight());
+            }
+        }
+
+        System.out.println("-".repeat(85));
     }
 }

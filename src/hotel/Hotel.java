@@ -132,7 +132,7 @@ public class Hotel {
                     
                     //The file was selected before
                     if (!fileLoaded) {
-                        System.out.println("[WARNING] Please select a file first");
+                        System.out.println("\n[WARNING] Please select a file first");
                         break;
                     }
 
@@ -146,7 +146,7 @@ public class Hotel {
                     
                     //The file was selected before
                     if (!fileLoaded) {
-                        System.out.println("[WARNING] Please select a file first");
+                        System.out.println("\n[WARNING] Please select a file first");
                         break;
                     }
                     
@@ -165,7 +165,7 @@ public class Hotel {
                     
                     //The file was selected before
                     if (!fileLoaded) {
-                        System.out.println("[WARNING] Please select a file first");
+                        System.out.println("\n[WARNING] Please select a file first");
                         break;
                     }
                     
@@ -194,11 +194,11 @@ public class Hotel {
                     int foundIndex = myMethods.binarySearch(sortedEmployees, searchName, 0, sortedEmployees.size() - 1);
                     
                     if (foundIndex == -1) {
-                        System.out.println("[WARNING] Employee not found.");
+                        System.out.println("[WARNING] Employee not found");
                     } else {
                         Employee foundEmployee = sortedEmployees.get(foundIndex);
 
-                        System.out.println("\n[SUCCESS] Employee found.");
+                        System.out.println("\n[SUCCESS] Employee found");
                         System.out.println("First Name  : " + foundEmployee.getFirstName());
                         System.out.println("Last Name   : " + foundEmployee.getLastName());
                         System.out.println("Job Title   : " + foundEmployee.getJob().getJobTitle());
@@ -214,7 +214,7 @@ public class Hotel {
                     
                     //The file was selected before
                     if (!fileLoaded) {
-                        System.out.println("[WARNING] Please select a file first");
+                        System.out.println("[\nWARNING] Please select a file first");
                         break;
                     }
                     
@@ -234,7 +234,7 @@ public class Hotel {
                     
                     //The file was selected before
                     if (!fileLoaded) {
-                        System.out.println("[WARNING] Please select a file first");
+                        System.out.println("\n[WARNING] Please select a file first");
                         break;
                     }
                     myMethods.listEmployees(employeesList);

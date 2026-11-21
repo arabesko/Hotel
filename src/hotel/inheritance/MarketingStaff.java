@@ -12,8 +12,4 @@ public class MarketingStaff extends OfficeStaff {
 
         super(firstName, lastName, gender, email, job);
     }
-
-    public void planMarketingCampaign() {
-        System.out.println("Planning a marketing campaign.");
-    }
 }

@@ -12,8 +12,4 @@ public class FrontendDeveloper extends TechnicalStaff {
 
         super(firstName, lastName, gender, email, job);
     }
-
-    public void developFrontend() {
-        System.out.println("Developing user interfaces.");
-    }
 }

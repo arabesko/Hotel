@@ -12,8 +12,4 @@ public class OfficeStaff extends Employee {
 
         super(firstName, lastName, gender, email, job);
     }
-
-    public void performOfficeTasks() {
-        System.out.println("Performing office tasks.");
-    }
 }

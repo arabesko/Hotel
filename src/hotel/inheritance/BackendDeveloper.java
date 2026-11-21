@@ -13,8 +13,4 @@ public class BackendDeveloper extends TechnicalStaff {
 
         super(firstName, lastName, gender, email, job);
     }
-
-    public void developBackend() {
-        System.out.println("Developing backend systems.");
-    }
 }

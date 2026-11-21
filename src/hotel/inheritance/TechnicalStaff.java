@@ -12,8 +12,4 @@ public class TechnicalStaff extends Employee {
 
         super(firstName, lastName, gender, email, job);
     }
-
-    public void performTechnicalWork() {
-        System.out.println("Performing technical tasks.");
-    }
 }

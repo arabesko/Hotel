@@ -12,8 +12,4 @@ public class HRStaff extends OfficeStaff {
 
         super(firstName, lastName, gender, email, job);
     }
-
-    public void manageEmployeeRecords() {
-        System.out.println("Managing employee records.");
-    }
 }

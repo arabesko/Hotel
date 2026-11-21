@@ -12,8 +12,4 @@ public class TeamLeader extends Management {
 
         super(firstName, lastName, gender, email, job);
     }
-
-    public void coordinateTasks() {
-        System.out.println("Coordinating team tasks.");
-    }
 }

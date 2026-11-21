@@ -41,4 +41,5 @@ public class Employee {
     public String getDepartment(){
         return job.getDepartment().getDepartmentName();
     }
+    
 }

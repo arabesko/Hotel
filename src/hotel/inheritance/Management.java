@@ -9,11 +9,6 @@ import hotel.structure.Job;
 public class Management extends Employee {
 
     public Management(String firstName, String lastName, String gender, String email, Job job) {
-
         super(firstName, lastName, gender, email, job);
     }
-    
-    public void manageTeam() {
-        System.out.println("Managing the team.");
-    }   
 }

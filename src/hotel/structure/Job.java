@@ -7,9 +7,8 @@ public class Job {
     private String position;
     private String jobTitle;
     private String company;
-    private int priority;
-    
     private Department department;
+    private int priority;
     
     public Job (double salary, String position, String jobTitle, String company, Department department, int priority){
         this.salary     = salary;

@@ -8,13 +8,7 @@ import hotel.structure.Job;
 
 public class Manager extends Management {
 
-    public Manager(String firstName, String lastName,
-                   String gender, String email, Job job) {
-
+    public Manager(String firstName, String lastName, String gender, String email, Job job) {
         super(firstName, lastName, gender, email, job);
-    }
-
-    public void superviseDepartment() {
-        System.out.println("Supervising the department.");
     }
 }

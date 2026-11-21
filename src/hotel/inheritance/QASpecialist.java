@@ -12,8 +12,4 @@ public class QASpecialist extends TechnicalStaff {
 
         super(firstName, lastName, gender, email, job);
     }
-
-    public void testSoftware() {
-        System.out.println("Testing software quality.");
-    }
 }

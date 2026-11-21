@@ -12,8 +12,4 @@ public class FinanceStaff extends OfficeStaff {
 
         super(firstName, lastName, gender, email, job);
     }
-
-    public void prepareFinancialReport() {
-        System.out.println("Preparing financial reports.");
-    }
 }

@@ -12,8 +12,4 @@ public class AssistantManager extends Management {
 
         super(firstName, lastName, gender, email, job);
     }
-    
-    public void assistManager() {
-        System.out.println("Assisting the manager.");
-    }   
 }

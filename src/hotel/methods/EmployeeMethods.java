@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class EmployeeMethods {
+    //Load the file text
     public void loadEmployees(BufferedReader reader, ArrayList<Employee> employeesList){
         try {
             employeesList.clear(); //Clear the list before to start
@@ -68,7 +69,7 @@ public class EmployeeMethods {
                 
                 //Clase jobe
                 Job job = new Job(salary, position, jobTitle, fields[8].trim(), department, priority);
-                Employee employee = createEmployee(fields[0].trim(), fields[1].trim(), fields[2].trim(), fields[3].trim(), job);
+                Employee employee = createCategoryEmployee(fields[0].trim(), fields[1].trim(), fields[2].trim(), fields[3].trim(), job);
                 
                 employeesList.add(employee);
             }
@@ -79,7 +80,8 @@ public class EmployeeMethods {
         }
     }
     
-    private Employee createEmployee(String firstName, String lastName, String gender, String email, Job job) {
+    //Create the structure for the employee, final name of the class
+    private Employee createCategoryEmployee(String firstName, String lastName, String gender, String email, Job job) {
 
         String jobTitle = job.getJobTitle();
 
@@ -147,6 +149,7 @@ public class EmployeeMethods {
         }
     }
     
+    //Create a new employee
     public void addEmployee(ArrayList<Employee> employessList, Scanner myScan){
         System.out.println("\n--- ADD NEW EMPLOYEE ---");
         
@@ -379,7 +382,7 @@ public class EmployeeMethods {
         int priority = selectedJobTitle.getPriority(); //We get the priority in the enum
         Job job = new Job(salary, position, jobTitle, company, department, priority); //Class job
 
-        Employee employee = createEmployee(firstName, lastName, gender, email, job); //Class employee with the groups
+        Employee employee = createCategoryEmployee(firstName, lastName, gender, email, job); //Class employee with the groups
 
         employessList.add(employee);
 
@@ -387,6 +390,7 @@ public class EmployeeMethods {
         
     }
     
+    //Sort de records
     public void insertionSort(ArrayList<Employee> employees, int i) {
 
         if (i >= employees.size()) return;
@@ -403,6 +407,7 @@ public class EmployeeMethods {
         insertionSort(employees, i + 1);
     }
 
+    //Do the binary search
     public int binarySearch(ArrayList<Employee> employees, String name, int left, int right) {
 
         //Elemento is not founded
@@ -426,6 +431,7 @@ public class EmployeeMethods {
         return binarySearch(employees, name, mid + 1, right);
     }
 
+    //List the employees
     public void listEmployees(ArrayList<Employee> employeesList) {
 
         System.out.println("\n--- EMPLOYEE LIST ---");
